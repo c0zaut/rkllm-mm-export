@@ -71,8 +71,8 @@ rknn.config(target_platform=target_platform, mean_values=[[0.48145466 * 255, 0.4
 rknn.load_onnx(onnx_path)
 rknn.build(do_quantization=False, dataset=None)
 os.makedirs("rknn", exist_ok=True)
-savepath = f'./rknn/{quantize.model_name}.rkllm'
-rknn.export_rknn(savepath.format(target_platform))
+savepath = f'./rknn/{quantize.model_name}'
+rknn.export_rknn(f'{savepath}.rknn'.format(target_platform))
 
 llm = RKLLM()
 
@@ -93,7 +93,7 @@ if ret != 0:
     exit(ret)
 
 # # Export rkllm model
-ret = llm.export_rkllm(savepath)
+ret = llm.export_rkllm(f'{savepath}.rkllm')
 if ret != 0:
     print('Export model failed!')
     exit(ret)
